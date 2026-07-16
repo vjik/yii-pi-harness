@@ -30,4 +30,4 @@ ENV PI_CODING_AGENT_SESSION_DIR=/pi-sessions
 
 WORKDIR /workspace
 
-ENTRYPOINT ["pi"]
+CMD ["pi"]
