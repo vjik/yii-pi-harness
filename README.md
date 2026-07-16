@@ -5,8 +5,8 @@ docker run --rm -it \
   --read-only \
   --tmpfs /tmp \
   --tmpfs /home/node/.pi/agent/sessions \
-  -v "$(pwd):/workspace" \
-  -v "$HOME/.pi/agent/models.json:/home/node/.pi/agent/models.json:ro" \
+  -v "$HOME"/.pi/agent/models.json:/home/node/.pi/agent/models.json:ro \
+  -v "$(pwd)":/workspace \
   ghcr.io/yiisoft-contrib/pi-harness:latest
 ```
 
