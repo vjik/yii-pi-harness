@@ -1,17 +1,28 @@
 ARG PHP_IMAGE_VERSION=8.5.8-cli-trixie
+ARG COMPOSER_IMAGE_VERSION=2.10.2
 ARG NODE_IMAGE_VERSION=24.18.0-trixie
 ARG PI_VERSION=0.80.7
 
 FROM node:${NODE_IMAGE_VERSION} AS node
+FROM composer:${COMPOSER_IMAGE_VERSION} AS composer
 FROM php:${PHP_IMAGE_VERSION}
 
 # hadolint ignore=DL3008
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
+    git \
+    unzip \
     fd-find \
     ripgrep \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+# Custom PHP configuration
+COPY php.ini "$PHP_INI_DIR/conf.d/php.ini"
+
+# Composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Node.js
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
@@ -27,6 +38,8 @@ ENV PI_CODING_AGENT_DIR=/pi
 
 # Pi session storage
 ENV PI_CODING_AGENT_SESSION_DIR=/pi-sessions
+
+ENV LC_ALL=C.UTF-8
 
 WORKDIR /workspace
 
