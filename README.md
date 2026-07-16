@@ -1,11 +1,9 @@
 ```shell
-docker run --rm -it \
-  --init \
+docker run --rm -it --init --read-only \
   --user "$(id -u):$(id -g)" \
-  --read-only \
   --tmpfs /tmp \
-  --tmpfs /home/node/.pi/agent/sessions \
-  -v "$HOME"/.pi/agent/models.json:/home/node/.pi/agent/models.json:ro \
+  --tmpfs /pi-sessions \
+  -v "$HOME"/.pi/agent/models.json:/pi/models.json:ro \
   -v "$(pwd)":/workspace \
   ghcr.io/yiisoft-contrib/pi-harness:latest
 ```
