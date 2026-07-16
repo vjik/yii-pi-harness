@@ -1,12 +1,21 @@
 ```shell
 docker run --rm -it --init --read-only \
-  --user "$(id -u):$(id -g)" \
   --tmpfs /tmp \
   --tmpfs /pi-sessions \
   -v "$HOME"/.pi/agent/models.json:/pi/models.json:ro \
   -v "$(pwd)":/workspace \
   ghcr.io/yiisoft-contrib/pi-harness:latest
 ```
+
+## Session persistence
+
+To persist sessions across container restarts, replace `--tmpfs /pi-sessions` with a named volume:
+
+```shell
+-v yii-pi-sessions:/pi-sessions
+```
+
+This creates a Docker named volume `yii-pi-sessions` that persists session data even after the container is removed.
 
 ## Overriding the entrypoint
 
