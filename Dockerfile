@@ -4,11 +4,14 @@ FROM node:24.18.0-trixie-slim
 
 # hadolint ignore=DL3008
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends ca-certificates ripgrep \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    fd-find \
+    ripgrep \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Pi Coding Agent
-RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent@${PI_VERSION}
+RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent@"$PI_VERSION"
 
 WORKDIR /workspace
 
