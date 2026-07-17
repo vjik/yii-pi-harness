@@ -41,11 +41,15 @@ ENV PI_CODING_AGENT_DIR=/pi
 # Disable all Pi startup network operations (update checks, package update checks, and install/update telemetry).
 ENV PI_OFFLINE=1
 
-# Pi system prompt
-COPY pi/SYSTEM.md /pi/SYSTEM.md
+# Pi files
+COPY pi /pi-yii
 
 ENV LC_ALL=C.UTF-8
 
 WORKDIR /workspace
 
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["pi"]
