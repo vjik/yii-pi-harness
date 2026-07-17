@@ -38,11 +38,14 @@ RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent@"$PI_VERSION
 # Pi config directory
 ENV PI_CODING_AGENT_DIR=/pi
 
+# Pi session storage
+ENV PI_CODING_AGENT_SESSION_DIR=/pi-sessions
+
 # Disable all Pi startup network operations (update checks, package update checks, and install/update telemetry).
 ENV PI_OFFLINE=1
 
 # Pi files
-COPY pi /pi-yii
+COPY pi/ /pi
 
 ENV LC_ALL=C.UTF-8
 
