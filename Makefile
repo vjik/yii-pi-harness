@@ -3,7 +3,7 @@
 IMAGE := ghcr.io/yiisoft-contrib/pi-harness
 
 build: ## Build the docker image
-	docker build -t $(IMAGE) docker
+	docker build -t $(IMAGE) -f docker/Dockerfile .
 
 hadolint: ## Run hadolint on the Dockerfile
 	docker run --rm -i hadolint/hadolint < docker/Dockerfile
