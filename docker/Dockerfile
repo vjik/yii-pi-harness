@@ -43,4 +43,8 @@ ENV LC_ALL=C.UTF-8
 
 WORKDIR /workspace
 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["pi"]
