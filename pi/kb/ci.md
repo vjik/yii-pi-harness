@@ -29,8 +29,8 @@ concurrency:
 - Paths: production code, bc-check config, composer.json
 - Use maximum PHP version supported by the package
 
-BC check (roave/backward-compatibility-check) uses XML config file `.roave-backward-compatibility-check.xml` in project
-root. Format:
+If your package has BC violations that should be ignored, create .roave-backward-compatibility-check.xml in the project
+root. Otherwise, the file is not needed. Format:
 
 ```xml
 <roave-bc-check xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
