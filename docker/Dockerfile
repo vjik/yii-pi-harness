@@ -1,13 +1,13 @@
 ARG PHP_IMAGE_VERSION=8.5.8-cli-trixie
 ARG COMPOSER_IMAGE_VERSION=2.10.2
 ARG NODE_IMAGE_VERSION=24.18.0-trixie
-ARG PI_VERSION=0.80.10
 
 FROM node:${NODE_IMAGE_VERSION} AS node
 FROM composer:${COMPOSER_IMAGE_VERSION} AS composer
 FROM php:${PHP_IMAGE_VERSION}
 
-ARG PI_VERSION
+ARG PI_VERSION=0.80.10
+ARG ZIZMOR_VERSION=1.27.0
 
 # hadolint ignore=DL3008
 RUN apt-get update \
@@ -17,6 +17,7 @@ RUN apt-get update \
     unzip \
     fd-find \
     ripgrep \
+    python3-pip \
   && rm -rf /var/lib/apt/lists/* \
   && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
@@ -25,6 +26,9 @@ COPY php/php.ini "$PHP_INI_DIR/conf.d/php.ini"
 
 # Composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# Zizmor
+RUN pip install zizmor=="$ZIZMOR_VERSION" --no-cache-dir --break-system-packages
 
 # Node.js
 COPY --from=node /usr/local/bin/node /usr/local/bin/node

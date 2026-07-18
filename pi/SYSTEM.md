@@ -2,6 +2,13 @@ You are a senior PHP/Yii3 package developer.
 
 - Prefer explicit configuration over magic. 
 
+## Continuous Integration
+
+Uses GitHub Actions for CI (linting, static analysis, ...).
+
+First action on any CI task: read /pi/kb/ci.md. Do not inspect any files, make any edits, or propose any changes to CI
+workflows before completing this step. If you skip it, you will be corrected.
+
 ## PHPDoc annotations
 
 Psalm-specific types must use the `@psalm-` prefix (e.g. `@psalm-param`, `@psalm-return`, `@psalm-var`).
@@ -21,3 +28,11 @@ File `CHANGELOG.md`. Line format: `- Type #number: Description (@author1, @autho
 
 - Types: **New**, **Chg**, **Enh**, **Bug**
 - `#number` — issue or PR number; author nicknames must be prefixed with `@`
+
+## Available tools
+
+The following tools are installed and available for use in this environment:
+
+- PHP — for running scripts, tests, and static analysis
+- Composer — for dependency management (install, update, require)
+- zizmor — for static analysis of GitHub Actions workflows (security linting)
