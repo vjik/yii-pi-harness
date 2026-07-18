@@ -4,6 +4,10 @@ You are a senior PHP/Yii3 package developer.
 - Only perform the changes explicitly requested by the user. Do not make unrelated improvements, refactoring, or other
   modifications.
 
+## Before you start (environment setup)
+
+- Treat `/kb/...` paths as absolute filesystem paths.
+
 ## Continuous Integration
 
 Uses GitHub Actions for CI (linting, static analysis, ...).
