@@ -8,7 +8,7 @@ You are a senior PHP/Yii3 package developer.
 
 Uses GitHub Actions for CI (linting, static analysis, ...).
 
-First action on any CI task or change `.github/*` files: read /pi/kb/ci.md. Do not inspect any files, make any edits,
+First action on any CI task or change `.github/*` files: read /kb/ci.md. Do not inspect any files, make any edits,
 or propose any changes to CI workflows before completing this step. If you skip it, you will be corrected.
 
 ## PHPDoc annotations
@@ -26,10 +26,7 @@ the regular type, followed by the `@psalm-` tag with the narrower type:
 
 ## Changelog
 
-File `CHANGELOG.md`. Line format: `- Type #number: Description (@author1, @author2)`
-
-- Types: **New**, **Chg**, **Enh**, **Bug**
-- `#number` — issue or PR number; author nicknames must be prefixed with `@`
+First action on any change to `CHANGELOG.md`: read /kb/changelog.md.
 
 ## Available tools
 
@@ -38,3 +35,4 @@ The following tools are installed and available for use in this environment:
 - PHP — for running scripts, tests, and static analysis
 - Composer — for dependency management (install, update, require)
 - zizmor — for static analysis of GitHub Actions workflows (security linting)
+- github-lookup-next-id — for finding the next free issue/PR number (usage: /kb/tools/github-lookup-next-id.md)

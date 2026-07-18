@@ -8,11 +8,13 @@ FROM php:${PHP_IMAGE_VERSION}
 
 ARG PI_VERSION=0.80.10
 ARG ZIZMOR_VERSION=1.27.0
+ARG GITHUB_LOOKUP_NEXT_ID_VERSION=1.0.1
 
 # hadolint ignore=DL3008
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
+    curl \
     git \
     unzip \
     fd-find \
@@ -29,6 +31,10 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Zizmor
 RUN pip install zizmor=="$ZIZMOR_VERSION" --no-cache-dir --break-system-packages
+
+# GitHub Lookup Next ID
+RUN curl -fsSL "https://raw.githubusercontent.com/vjik/github-lookup-next-id/${GITHUB_LOOKUP_NEXT_ID_VERSION}/github-lookup-next-id" -o /usr/local/bin/github-lookup-next-id \
+  && chmod +x /usr/local/bin/github-lookup-next-id
 
 # Node.js
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
@@ -48,8 +54,9 @@ ENV PI_CODING_AGENT_SESSION_DIR=/pi-sessions
 # Disable all Pi startup network operations (update checks, package update checks, and install/update telemetry).
 ENV PI_OFFLINE=1
 
-# Pi files
+# Pi and kb files
 COPY pi/ /pi
+COPY kb/ /kb
 
 ENV LC_ALL=C.UTF-8
 
