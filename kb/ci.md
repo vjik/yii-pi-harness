@@ -27,7 +27,7 @@ concurrency:
 
 - Must be present for released packages
 - Triggers: pull_request, push
-- Paths: production code, bc-check config, composer.json
+- Paths: production code (src/, config/, etc.), bc-check config, composer.json
 - Use maximum PHP version supported by the package
 
 If your package has BC violations that should be ignored, create .roave-backward-compatibility-check.xml in the project
@@ -46,7 +46,7 @@ root. Otherwise, the file is not needed. Format:
 ## build.yml
 
 - Triggers: pull_request, push
-- Paths: production code, tests, phpunit config, composer.json
+- Paths: production code (src/, config/, etc.), tests, phpunit config, composer.json
 - If reusable workflow "yiisoft/actions/.github/workflows/phpunit.yml" is used, CodeCov token must be passed via secrets.
 ```
 secrets:
@@ -56,17 +56,17 @@ secrets:
 ## composer-require-checker.yml
 
 - Triggers: pull_request, push
-- Paths: production code, tests, composer.json, composer-require-checker.json
+- Paths: production code (src/, config/, etc.), tests, composer.json, composer-require-checker.json
 
 ## mutation.yml
 
 - Triggers: pull_request, push
-- Paths: production code, tests, phpunit and infection configs, composer.json
+- Paths: production code (src/, config/, etc.), tests, phpunit and infection configs, composer.json
 
 ## rector-cs.yml
 
 - Triggers: pull_request
-- Paths: production code, tests, rector and PHP CS Fixer configs, composer.json
+- Paths: production code (src/, config/, etc.), tests, rector and PHP CS Fixer configs, composer.json
 - Permission "contents: write" must be added to the specific job
 - Most packages use the reusable action (use minimal PHP version supported by the package), but some packages may
   have their own custom implementation instead:
@@ -87,7 +87,7 @@ jobs:
 ## static.yml
 
 - Triggers: pull_request, push
-- Paths: production code, psalm config, composer.json
+- Paths: production code (src/, config/, etc.), psalm config, composer.json
 - Must run on all minor PHP versions supported by the package
 
 ## zizmor.yml
