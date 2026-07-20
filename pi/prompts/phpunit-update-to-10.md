@@ -19,13 +19,7 @@ composer show --all phpunit/phpunit | grep "^versions" | tr ',' '\n' | grep -E '
 
 ## Configure cache
 
-- Make sure that `/runtime` directory exists and is in it `.gitignore` with content:
-```
-*
-!.gitignore
-
-```
-
+- Read /kb/runtime-directory.md and make sure `/runtime` directory is set up as described there.
 - Cleanup `/.gitignore`. for PHPUnit, there should **only** be:
 ```
 # Local PHPUnit config  

@@ -1,5 +1,8 @@
 # Changelog
 
+[IMPORTANT] Only add entries for changes affecting production code. Changes to tests, CI, dev tooling, or other
+non-production files must not be recorded in the changelog.
+
 File `CHANGELOG.md`. Entries are grouped under a version heading:
 
 ```

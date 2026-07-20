@@ -11,7 +11,8 @@
 - Whitelists must be used for paths.
 - Path must contain workflow file
 - Paths must include only paths that are tracked by git and that actually exist.
-- If a workflow contains multiple triggers with the same paths, YAML anchors should be used.
+- If a workflow contains multiple triggers with the same paths, YAML anchors should be used. Do not add an anchor
+  that is only ever used once.
 - If there is a `push` trigger, it should only run on the `master` branch.
 - `permissions` must be specified.
 - `concurrency` must be specified:
@@ -66,7 +67,22 @@ secrets:
 
 - Triggers: pull_request
 - Paths: production code, tests, rector and PHP CS Fixer configs, composer.json
-- Job permission "contents: write" must be added, if "yiisoft/actions/.github/workflows/rector-cs.yml" used
+- Permission "contents: write" must be added to the specific job
+- Most packages use the reusable action (use minimal PHP version supported by the package), but some packages may
+  have their own custom implementation instead:
+```yaml                                                                                                                                                                                                                                    
+permissions:                                                                                                                                                                                                                             
+  contents: read                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                        
+jobs:                                                                                                                                                                                                                                    
+  rector-cs:                                                                                                                                                                                                                             
+    permissions:                                                                                                                                                                                                                         
+      contents: write  # Required to commit formatting fixes back to the PR                                                                                                                                                              
+    uses: yiisoft/actions/.github/workflows/rector-cs.yml@master                                                                                                                                                                         
+    with:                                                                                                                                                                                                                                
+      php: '8.1'                                                                                                                                                                                                                         
+```
+- If the package has an old separate `rector.yml` workflow, remove it — it's replaced by `rector-cs.yml`.
 
 ## static.yml
 
