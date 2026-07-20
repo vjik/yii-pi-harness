@@ -11,7 +11,7 @@ composer require --dev rector/rector
 
 Ensure `"rector": "rector"` is present in composer.json scripts.
 
-Use this `rector.php` as example (adopt to minimal PHP version supported by the package):
+Use this `rector.php` as example:
 ```
 <?php
 
@@ -39,7 +39,10 @@ return RectorConfig::configure()
     ]);
 ```
 
-`withPaths()` must list all PHP code in the package.
+Be sure to consider this:
+
+- use minimal PHP version supported by the package
+- `withPaths()` must list all PHP code in the package (src, tests, config, etc.)
 
 ## Usage
 

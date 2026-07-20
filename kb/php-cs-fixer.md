@@ -37,7 +37,9 @@ return ConfigBuilder::build()
 
 ```
 
-`Finder::in()` must list all PHP code in the package.
+Be sure to consider this:
+
+- `Finder::in()` must list all PHP code in the package (src, tests, config, etc.)
 
 Ensure `"cs-fix": "php-cs-fixer fix"` is present in composer.json scripts.
 
