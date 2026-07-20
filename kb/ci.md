@@ -88,6 +88,7 @@ jobs:
 
 - Triggers: pull_request, push
 - Paths: production code, psalm config, composer.json
+- Must run on all minor PHP versions supported by the package
 
 ## zizmor.yml
 

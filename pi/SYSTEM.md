@@ -10,10 +10,11 @@ You are a senior PHP/Yii3 package developer.
 
 ## Continuous Integration
 
-Uses GitHub Actions for CI (linting, static analysis, ...).
+First read /kb/ci.md on:
 
-First action on any CI task or change `.github/*` files: read /kb/ci.md. Do not inspect any files, make any edits,
-or propose any changes to CI workflows before completing this step. If you skip it, you will be corrected.
+- any CI task (do not inspect any files, make any edits, or propose any changes to CI workflows before completing this 
+  step. If you skip it, you will be corrected)
+- change PHP version constraint
 
 ## PHPDoc annotations
 
@@ -30,7 +31,23 @@ the regular type, followed by the `@psalm-` tag with the narrower type:
 
 ## Changelog
 
-First action on any change to `CHANGELOG.md`: read /kb/changelog.md.
+Read /kb/changelog.md on:
+
+- before any change to `CHANGELOG.md`
+- change any production code or `composer.json`
+
+## Readme
+
+Read /kb/readme.md on:
+
+- before any change to `README.md`
+- change any production code or `composer.json`
+
+## Composer
+
+Read /kb/composer.md on:
+
+- before any change to `composer.json`
 
 ## Available tools
 
