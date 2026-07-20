@@ -49,6 +49,13 @@ Read /kb/composer.md on:
 
 - before any change to `composer.json`
 
+## Dev tools in `tools/`
+
+Read /kb/bamarni-bin-plugin.md on:
+
+- moving a dev-only tool (psalm, infection, phpstan, rector, ...) into separate folder
+- a dev tool's constraints conflict with the root `composer.json` or block raising the PHP version range
+
 ## Available tools
 
 The following tools are installed and available for use in this environment:
