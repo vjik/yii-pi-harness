@@ -9,6 +9,7 @@ FROM php:${PHP_IMAGE_VERSION}
 ARG PI_VERSION=0.80.10
 ARG ZIZMOR_VERSION=1.27.0
 ARG GITHUB_LOOKUP_NEXT_ID_VERSION=1.0.1
+ARG GH_VERSION=2.96.0
 
 # hadolint ignore=DL3008
 RUN apt-get update \
@@ -36,6 +37,11 @@ RUN pip install zizmor=="$ZIZMOR_VERSION" --no-cache-dir --break-system-packages
 RUN curl -fsSL "https://raw.githubusercontent.com/vjik/github-lookup-next-id/${GITHUB_LOOKUP_NEXT_ID_VERSION}/github-lookup-next-id" -o /usr/local/bin/github-lookup-next-id \
   && chmod +x /usr/local/bin/github-lookup-next-id
 
+# GitHub CLI
+RUN curl -fsSL "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_$(dpkg --print-architecture).deb" -o /tmp/gh.deb \
+  && dpkg -i /tmp/gh.deb \
+  && rm /tmp/gh.deb
+
 # Node.js
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
@@ -57,6 +63,9 @@ ENV PI_OFFLINE=1
 # Pi and kb files
 COPY pi/ /pi
 COPY kb/ /kb
+
+# GitHub CLI skill
+RUN curl -fsSL "https://raw.githubusercontent.com/cli/cli/v${GH_VERSION}/skills/gh/SKILL.md" -o /pi/skills/gh/SKILL.md
 
 ENV LC_ALL=C.UTF-8
 

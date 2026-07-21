@@ -8,3 +8,5 @@ docker run --rm -it --init --read-only \
   -v "$(pwd)":/workspace \
   ghcr.io/yiisoft-contrib/pi-harness:latest
 ```
+
+To use `gh` inside the container, pass a token via the `GITHUB_TOKEN` environment variable, e.g. `-e GITHUB_TOKEN="$GITHUB_TOKEN"`.
