@@ -9,4 +9,10 @@ docker run --rm -it --init --read-only \
   ghcr.io/yiisoft-contrib/pi-harness:latest
 ```
 
-To use `gh` inside the container, pass a token via the `GITHUB_TOKEN` environment variable, e.g. `-e GITHUB_TOKEN="$GITHUB_TOKEN"`.
+## GitHub CLI
+
+To use `gh` inside the container, mount a file containing a GitHub token at `/pi/github-token`,
+e.g. `-v /path/to/token:/pi/github-token:ro`.
+
+> [!warning]
+> It is recommended to use a token scoped with read-only access to only the repositories the agent needs.
