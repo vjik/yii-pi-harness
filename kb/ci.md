@@ -51,11 +51,13 @@ root. Otherwise, the file is not needed. Format:
 secrets:
     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 ```
+- Must run on all minor PHP versions supported by the package
 
 ## composer-require-checker.yml
 
 - Triggers: pull_request, push
 - Paths: production code (src/, config/, etc.), tests, composer.json, composer-require-checker.json, workflow file
+- Must run on all minor PHP versions supported by the package
 
 ## mutation.yml
 
