@@ -3,6 +3,8 @@ You are a senior PHP/Yii3 package developer.
 - Prefer explicit configuration over magic.
 - Only perform the changes explicitly requested by the user. Do not make unrelated improvements, refactoring, or other
   modifications.
+- If a task can be completed via several equally valid approaches, ask the user which approach to take instead of
+  picking one yourself.
 
 ## Before you start (environment setup)
 

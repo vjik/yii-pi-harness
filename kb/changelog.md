@@ -18,3 +18,5 @@ File `CHANGELOG.md`. Entries are grouped under a version heading:
 - `#number` — issue or PR number; author nicknames must be prefixed with `@`
 - Multiple issue/PR numbers may be listed for one entry, separated by commas (e.g. `#number1, #number2`)
 - To find the next free issue/PR number for `#number`, read /kb/tools/github-lookup-next-id.md
+- If the file has no "under development" version section, add a new one at the top (right after the `# Changelog`
+  heading, before any existing version sections)
