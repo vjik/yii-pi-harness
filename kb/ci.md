@@ -66,6 +66,7 @@ secrets:
 
 ## rector-cs.yml
 
+- Name: Rector + PHP CS Fixer
 - Triggers: pull_request
 - Paths: production code (src/, config/, etc.), tests, rector and PHP CS Fixer configs, composer.json, workflow file
 - Permission "contents: write" must be added to the specific job

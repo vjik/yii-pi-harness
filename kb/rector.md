@@ -6,10 +6,11 @@ quality rules.
 ## Installation
 
 ```shell
-composer require --dev rector/rector
+composer require --dev rector/rector yiisoft/code-style
 ```
 
-Ensure `"rector": "rector"` is present in composer.json scripts.
+- Ensure `"rector": "rector"` is present in composer.json scripts.
+- Ensure that minimum `^1.1` version of `yiisoft/code-style` is used.
 
 Use this `rector.php` as example:
 ```
@@ -17,11 +18,8 @@ Use this `rector.php` as example:
 
 declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\Config\RectorConfig;
-use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
-use Rector\Php81\Rector\Property\ReadOnlyPropertyRector;
-use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
+use Yiisoft\CodeStyle\Rector\SetList;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -29,13 +27,8 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     ->withPhpSets(php81: true)
-    ->withRules([
-        InlineConstructorDefaultToPropertyRector::class,
-    ])
-    ->withSkip([
-        ClosureToArrowFunctionRector::class,
-        ReadOnlyPropertyRector::class,
-        NullToStrictStringFuncCallArgRector::class,
+    ->withSets([
+        SetList::YII_CORE,
     ]);
 ```
 

@@ -51,6 +51,13 @@ Read /kb/composer.md on:
 
 - before any change to `composer.json`
 
+## Rector
+
+Read /kb/rector.md on:
+
+- setting up or configuring Rector
+- any task involving running or updating Rector
+
 ## Dev tools in `tools/`
 
 Read /kb/bamarni-bin-plugin.md on:
