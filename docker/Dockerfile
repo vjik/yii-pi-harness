@@ -21,6 +21,7 @@ RUN apt-get update \
     fd-find \
     ripgrep \
     python3-pip \
+    yamllint \
   && rm -rf /var/lib/apt/lists/* \
   && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
