@@ -1,3 +1,17 @@
+## Runner script
+
+`run.sh` wraps the `docker run` invocations below into a single command:
+
+```shell
+./run.sh pi              # start Pi
+./run.sh claude-code     # start Claude Code
+./run.sh pi --prepare    # run /opt/pi/prepare.sh once against the mounted config directory
+./run.sh pi --local-proxy=1080  # route traffic through a local proxy on the host
+```
+
+It mounts `$HOME/.config/yii-harness/claude-code` or `$HOME/.config/yii-harness/pi` as the agent's
+config directory, and `$HOME/.config/yii-harness/github-token` if it exists (see [GitHub CLI](#github-cli)).
+
 ## Pi
 
 ```shell
