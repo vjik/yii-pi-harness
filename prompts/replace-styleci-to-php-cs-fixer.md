@@ -10,4 +10,5 @@ description: Replacing StyleCI to PHP CS Fixer
 - Read /kb/ci.md and set up `.github/workflows/rector-cs.yml` (remove the old `rector.yml` workflow, if present).
 - Run `composer rector` and `composer cs-fix`.
 - If new use imports were added to the production code, mention them in the changelog.
+  Example: `Explicitly import classes, functions, and constants in "use" section.`
 - Warn the user that they need to disable the repository in the StyleCI.

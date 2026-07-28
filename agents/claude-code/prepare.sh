@@ -33,6 +33,9 @@ const rules = [
   "Bash(tail /kb/*)",
   "Bash(find /kb*)",
   "Bash(ls /kb*)",
+  "Bash(yamllint *)",
+  "Bash(zizmor *)",
+  "Bash(github-lookup-next-id *)",
 ];
 for (const rule of rules) {
   if (!allow.includes(rule)) allow.push(rule);

@@ -36,6 +36,7 @@ Be sure to consider this:
 
 - use minimal PHP version supported by the package
 - `withPaths()` must list all PHP code in the package (src, tests, config, etc.)
+- if the minimal PHP version is 7.4, use `withPhp74Sets()` instead of `withPhpSets(php74: true)`
 
 ## Usage
 
