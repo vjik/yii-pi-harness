@@ -10,7 +10,7 @@ docker run --rm -it --init --read-only \
 
 ## Preparing Pi
 
-Before first use (and whenever you want to refresh plugins and default settings), run `/opt/prepare-pi.sh`
+Before first use (and whenever you want to refresh plugins and default settings), run `/opt/pi/prepare.sh`
 once against the mounted config directory:
 
 ```shell
@@ -20,7 +20,7 @@ docker run --rm -it --init --read-only \
   --tmpfs /tmp \
   -v "$HOME"/.config/yii-pi-harness:/pi \
   ghcr.io/yiisoft-contrib/pi-harness:latest \
-  /opt/prepare-pi.sh
+  /opt/pi/prepare.sh
 ```
 
 It installs extensions, copies the default `SYSTEM.md` and `trust.json`, and

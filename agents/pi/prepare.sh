@@ -8,9 +8,9 @@ const fs = require("node:fs");
 const file = process.env.SETTINGS_FILE;
 const settings = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf-8") || "{}") : {};
 const defaults = {
-  prompts: "/pi-defaults/prompts",
-  extensions: "/pi-defaults/extensions",
-  skills: "/pi-defaults/skills",
+  prompts: "/opt/pi/prompts",
+  extensions: "/opt/pi/extensions",
+  skills: "/skills",
 };
 for (const [key, dir] of Object.entries(defaults)) {
   const list = Array.isArray(settings[key]) ? settings[key] : [];
@@ -20,5 +20,5 @@ for (const [key, dir] of Object.entries(defaults)) {
 fs.writeFileSync(file, JSON.stringify(settings, null, 2) + "\n");
 '
 
-cp -f /pi-defaults/SYSTEM.md "$PI_CODING_AGENT_DIR/SYSTEM.md"
-cp -f /pi-defaults/trust.json "$PI_CODING_AGENT_DIR/trust.json"
+cp -f /opt/pi/SYSTEM.md "$PI_CODING_AGENT_DIR/SYSTEM.md"
+cp -f /opt/pi/trust.json "$PI_CODING_AGENT_DIR/trust.json"
