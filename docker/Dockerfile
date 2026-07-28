@@ -2,6 +2,7 @@ ARG PHP_IMAGE_VERSION=8.5.8-cli-trixie
 ARG COMPOSER_IMAGE_VERSION=2.10.2
 ARG NODE_IMAGE_VERSION=24.18.0-trixie
 ARG PI_VERSION=0.82.1
+ARG CLAUDE_CODE_VERSION=2.1.212
 ARG ZIZMOR_VERSION=1.28.0
 ARG GITHUB_LOOKUP_NEXT_ID_VERSION=1.0.1
 ARG GH_VERSION=2.96.0
@@ -65,8 +66,9 @@ ENV LC_ALL=C.UTF-8
 WORKDIR /workspace
 ENTRYPOINT ["entrypoint.sh"]
 
+
 # =============================================================================
-# pi: Pi Coding Agent image
+# Pi Coding Agent
 # =============================================================================
 FROM base AS pi
 
@@ -86,3 +88,26 @@ COPY agents/pi /opt/pi
 RUN chmod +x /opt/pi/prepare.sh
 
 CMD ["pi"]
+
+
+# =============================================================================
+# Claude Code
+# =============================================================================
+FROM base AS claude-code
+
+ARG CLAUDE_CODE_VERSION
+
+# Install Claude Code
+RUN npm install -g @anthropic-ai/claude-code@"$CLAUDE_CODE_VERSION"
+
+# Claude Code config directory
+ENV CLAUDE_CONFIG_DIR=/claude-code
+
+# The image pins the Claude Code version; disable background auto-update checks
+ENV DISABLE_AUTOUPDATER=1
+
+# Claude Code defaults
+COPY agents/claude-code /opt/claude-code
+RUN chmod +x /opt/claude-code/prepare.sh
+
+CMD ["claude"]

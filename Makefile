@@ -1,9 +1,15 @@
 .DEFAULT_GOAL := help
 
 IMAGE_PI := ghcr.io/yiisoft-contrib/pi-harness
+IMAGE_CLAUDE_CODE := ghcr.io/yiisoft-contrib/claude-code-harness
+
+build: build-pi build-claude-code ## Build all docker images
 
 build-pi: ## Build the Pi docker image
 	docker build --target pi -t $(IMAGE_PI) -f docker/Dockerfile .
+
+build-claude-code: ## Build the Claude Code docker image
+	docker build --target claude-code -t $(IMAGE_CLAUDE_CODE) -f docker/Dockerfile .
 
 hadolint: ## Run hadolint on the Dockerfile
 	docker run --rm -i hadolint/hadolint < docker/Dockerfile
