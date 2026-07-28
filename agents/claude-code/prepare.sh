@@ -16,3 +16,27 @@ done
 
 echo "prepare $CLAUDE_CONFIG_DIR/CLAUDE.md"
 cp -f /opt/claude-code/CLAUDE.md "$CLAUDE_CONFIG_DIR/CLAUDE.md"
+
+# Pre-approve reading /kb/*.md files without asking, whether via the Read
+# tool or common shell commands run directly against /kb.
+echo "prepare $CLAUDE_CONFIG_DIR/settings.json"
+SETTINGS_FILE="$CLAUDE_CONFIG_DIR/settings.json" node -e '
+const fs = require("node:fs");
+const file = process.env.SETTINGS_FILE;
+const settings = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf-8") || "{}") : {};
+settings.permissions ??= {};
+const allow = Array.isArray(settings.permissions.allow) ? settings.permissions.allow : [];
+const rules = [
+  "Read(//kb/**)",
+  "Bash(cat /kb/*)",
+  "Bash(head /kb/*)",
+  "Bash(tail /kb/*)",
+  "Bash(find /kb*)",
+  "Bash(ls /kb*)",
+];
+for (const rule of rules) {
+  if (!allow.includes(rule)) allow.push(rule);
+}
+settings.permissions.allow = allow;
+fs.writeFileSync(file, JSON.stringify(settings, null, 2) + "\n");
+'
