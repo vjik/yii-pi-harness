@@ -14,6 +14,7 @@ Options:
   --local-proxy PORT     Route traffic through a local proxy on the host at the given port
                          (sets HTTP_PROXY/HTTPS_PROXY to http://host.docker.internal:PORT
                          and adds --add-host=host.docker.internal:host-gateway)
+  --dry-run              Print the docker run command instead of executing it
   -h, --help             Show this help
 EOF
 }
@@ -21,11 +22,16 @@ EOF
 agent=""
 prepare=0
 local_proxy_port=""
+dry_run=0
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --prepare)
       prepare=1
+      shift
+      ;;
+    --dry-run)
+      dry_run=1
       shift
       ;;
     --local-proxy=*)
@@ -127,5 +133,12 @@ docker_args+=("$image")
 if [ "$prepare" -eq 1 ]; then
   docker_args+=("$prepare_cmd")
 fi
-echo "${docker_args[@]}"
+
+if [ "$dry_run" -eq 1 ]; then
+  printf 'docker run'
+  printf ' %q' "${docker_args[@]}"
+  printf '\n'
+  exit 0
+fi
+
 exec docker run "${docker_args[@]}"

@@ -53,8 +53,9 @@ RUN curl -fsSL "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_$
   && dpkg -i /tmp/gh.deb \
   && rm /tmp/gh.deb
 
-# Knowledge base & Skills
+# Knowledge base / Skills / Prompts
 COPY kb/ /kb
+COPY prompts/ /prompts
 COPY skills/ /skills
 RUN curl -fsSL "https://raw.githubusercontent.com/cli/cli/v${GH_VERSION}/skills/gh/SKILL.md" -o /skills/gh/SKILL.md
 
@@ -109,5 +110,8 @@ ENV DISABLE_AUTOUPDATER=1
 # Claude Code defaults
 COPY agents/claude-code /opt/claude-code
 RUN chmod +x /opt/claude-code/prepare.sh
+
+# Convert prompts to skills
+RUN node /opt/claude-code/prompts-to-skills.js && rm /opt/claude-code/prompts-to-skills.js
 
 CMD ["claude"]

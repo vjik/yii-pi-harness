@@ -7,11 +7,12 @@ mkdir -p "$CLAUDE_CONFIG_DIR/skills"
 for skill in /skills/*/; do
   name="$(basename "$skill")"
   target="$CLAUDE_CONFIG_DIR/skills/$name"
+  echo "prepare $target"
   if [ -e "$target" ] || [ -L "$target" ]; then
-    echo "prepare: $target already exists" >&2
-    exit 1
+    rm -rf "$target"
   fi
   ln -s "$skill" "$target"
 done
 
+echo "prepare $CLAUDE_CONFIG_DIR/CLAUDE.md"
 cp -f /opt/claude-code/CLAUDE.md "$CLAUDE_CONFIG_DIR/CLAUDE.md"

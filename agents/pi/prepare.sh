@@ -8,7 +8,7 @@ const fs = require("node:fs");
 const file = process.env.SETTINGS_FILE;
 const settings = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf-8") || "{}") : {};
 const defaults = {
-  prompts: "/opt/pi/prompts",
+  prompts: "/prompts",
   extensions: "/opt/pi/extensions",
   skills: "/skills",
 };
