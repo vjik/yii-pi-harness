@@ -1,4 +1,7 @@
-ARG PHP_IMAGE_VERSION=8.5.8-cli-trixie
+# check=skip=InvalidDefaultArgInFrom
+
+ARG DEBIAN_VERSION
+ARG PHP_DEFAULT_VERSION=8.5
 ARG COMPOSER_IMAGE_VERSION=2.10.2
 ARG NODE_IMAGE_VERSION=24.18.0-trixie
 ARG PI_VERSION=0.82.1
@@ -9,8 +12,9 @@ ARG GH_VERSION=2.96.0
 
 FROM node:${NODE_IMAGE_VERSION} AS node
 FROM composer:${COMPOSER_IMAGE_VERSION} AS composer
-FROM php:${PHP_IMAGE_VERSION} AS base
+FROM debian:${DEBIAN_VERSION} AS base
 
+ARG PHP_DEFAULT_VERSION
 ARG ZIZMOR_VERSION
 ARG GITHUB_LOOKUP_NEXT_ID_VERSION
 ARG GH_VERSION
@@ -26,11 +30,33 @@ RUN apt-get update \
     ripgrep \
     python3-pip \
     yamllint \
-  && rm -rf /var/lib/apt/lists/* \
-  && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+    libxml2-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    zlib1g-dev \
+    libonig-dev \
+    libicu-dev \
+    libsodium-dev \
+    libzip-dev \
+  && rm -rf /var/lib/apt/lists/*
 
-# Custom PHP configuration
-COPY php/php.ini "$PHP_INI_DIR/conf.d/php.ini"
+# hadolint ignore=DL3022
+COPY --from=php-8-1 /opt/php/8.1 /opt/php/8.1
+# hadolint ignore=DL3022
+COPY --from=php-8-2 /opt/php/8.2 /opt/php/8.2
+# hadolint ignore=DL3022
+COPY --from=php-8-3 /opt/php/8.3 /opt/php/8.3
+# hadolint ignore=DL3022
+COPY --from=php-8-4 /opt/php/8.4 /opt/php/8.4
+# hadolint ignore=DL3022
+COPY --from=php-8-5 /opt/php/8.5 /opt/php/8.5
+
+RUN for v in 8.1 8.2 8.3 8.4 8.5; do \
+      ln -sf "/opt/php/$v/bin/php" "/usr/local/bin/php$v"; \
+    done
+
+ENV PATH="/opt/php/${PHP_DEFAULT_VERSION}/bin:${PATH}"
 
 # Composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer

@@ -69,10 +69,15 @@ Read /kb/bamarni-bin-plugin.md on:
 
 The following tools are installed and available for use in this environment:
 
-- PHP — for running scripts, tests, and static analysis
-- Composer — for dependency management (install, update, require)
-- zizmor — for static analysis of GitHub Actions workflows (security linting)
-- yamllint — for linting YAML files (syntax and style)
-- github-lookup-next-id — for finding the next free issue/PR number (usage: /kb/tools/github-lookup-next-id.md)
-- gh — GitHub CLI, for interacting with GitHub (issues, PRs, workflow runs, etc.); authenticated automatically at
+- PHP binaries: `php` (default: 8.5), `php-8.1`–`php-8.5`.
+  Always use the PHP version required by the project. Examples:
+  ```sh
+  php-8.2 $(which composer) install
+  php-8.2 vendor/bin/phpunit
+  ```
+- `composer` — for dependency management (install, update, require)
+- `zizmor` — for static analysis of GitHub Actions workflows (security linting)
+- `yamllint` — for linting YAML files (syntax and style)
+- `github-lookup-next-id` — for finding the next free issue/PR number (usage: /kb/tools/github-lookup-next-id.md)
+- `gh` — GitHub CLI, for interacting with GitHub (issues, PRs, workflow runs, etc.); authenticated automatically at
   container start if a token file was mounted (see the `gh` skill for usage patterns)
