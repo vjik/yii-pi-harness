@@ -13,9 +13,10 @@
 - If a workflow contains multiple triggers with the same paths, YAML anchors should be used. Do not add an anchor
   that is only ever used once.
 - If there is a `push` trigger, it should only run on the `master` branch.
-- If a reusable workflow is pinned by commit hash, the version must be written after it as a `#` comment, e.g.:
+-If a reusable workflow is pinned by commit hash, the exact tag name must be written after it as a # comment. Example:
 ```yaml
-uses: yiisoft/actions/.github/workflows/phpunit.yml@a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2 # v1.2.3
+uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
 ```
 - `permissions` must be specified.
 - `concurrency` must be specified:
