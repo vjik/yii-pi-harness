@@ -4,10 +4,11 @@ FROM php-builder
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG PHP_VERSION=8.1.33
+ARG CURL_CONNECT_TIMEOUT=7
 ENV PHP_DIR=/opt/php/8.1
 
 WORKDIR /usr/src
-RUN curl -fsSL https://www.php.net/distributions/php-${PHP_VERSION}.tar.xz | tar -xJ
+RUN curl -fsSL --connect-timeout ${CURL_CONNECT_TIMEOUT} https://www.php.net/distributions/php-${PHP_VERSION}.tar.xz | tar -xJ
 WORKDIR /usr/src/php-${PHP_VERSION}
 
 RUN ./configure \

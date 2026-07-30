@@ -9,6 +9,7 @@ ARG CLAUDE_CODE_VERSION=2.1.212
 ARG ZIZMOR_VERSION=1.28.0
 ARG GITHUB_LOOKUP_NEXT_ID_VERSION=1.0.1
 ARG GH_VERSION=2.96.0
+ARG CURL_CONNECT_TIMEOUT=7
 
 FROM node:${NODE_IMAGE_VERSION} AS node
 FROM composer:${COMPOSER_IMAGE_VERSION} AS composer
@@ -18,6 +19,7 @@ ARG PHP_DEFAULT_VERSION
 ARG ZIZMOR_VERSION
 ARG GITHUB_LOOKUP_NEXT_ID_VERSION
 ARG GH_VERSION
+ARG CURL_CONNECT_TIMEOUT
 
 # hadolint ignore=DL3008
 RUN apt-get update \
@@ -65,7 +67,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN pip install zizmor=="$ZIZMOR_VERSION" --no-cache-dir --break-system-packages
 
 # GitHub Lookup Next ID
-RUN curl -fsSL "https://raw.githubusercontent.com/vjik/github-lookup-next-id/${GITHUB_LOOKUP_NEXT_ID_VERSION}/github-lookup-next-id" -o /usr/local/bin/github-lookup-next-id \
+RUN curl -fsSL --connect-timeout ${CURL_CONNECT_TIMEOUT} "https://raw.githubusercontent.com/vjik/github-lookup-next-id/${GITHUB_LOOKUP_NEXT_ID_VERSION}/github-lookup-next-id" -o /usr/local/bin/github-lookup-next-id \
   && chmod +x /usr/local/bin/github-lookup-next-id
 
 # Node.js
@@ -75,7 +77,7 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
 # GitHub CLI
-RUN curl -fsSL "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_$(dpkg --print-architecture).deb" -o /tmp/gh.deb \
+RUN curl -fsSL --connect-timeout ${CURL_CONNECT_TIMEOUT} "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_$(dpkg --print-architecture).deb" -o /tmp/gh.deb \
   && dpkg -i /tmp/gh.deb \
   && rm /tmp/gh.deb
 
@@ -83,7 +85,7 @@ RUN curl -fsSL "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_$
 COPY kb/ /kb
 COPY prompts/ /prompts
 COPY skills/ /skills
-RUN curl -fsSL "https://raw.githubusercontent.com/cli/cli/v${GH_VERSION}/skills/gh/SKILL.md" -o /skills/gh/SKILL.md
+RUN curl -fsSL --connect-timeout ${CURL_CONNECT_TIMEOUT} "https://raw.githubusercontent.com/cli/cli/v${GH_VERSION}/skills/gh/SKILL.md" -o /skills/gh/SKILL.md
 
 # Entrypoint
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
