@@ -58,6 +58,32 @@ secrets:
 ```
 - Must run on all minor PHP versions supported by the package
 
+## changelog.yml
+
+- Must be present only for packages that have releases. If the package has no releases, this workflow must not be present.
+- Triggers: pull_request
+- Paths: production code (src/, config/, etc.)
+- Content must be:
+```yaml
+name: changelog
+
+on:
+  pull_request:
+    paths:
+      %PRODUCTION_CODE_PATHS%
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changelog:
+    uses: yiisoft/actions/.github/workflows/changelog.yml@master
+```
+
 ## composer-require-checker.yml
 
 - Triggers: pull_request, push
