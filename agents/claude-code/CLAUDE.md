@@ -20,6 +20,8 @@ First read /kb/ci.md on:
 
 ## PHPDoc annotations
 
+All classes, interfaces, and enums must have a PHPDoc comment written in multi-line style (`/**` on its own line, `*/` on its own line), even if it contains only one line of text.
+
 Psalm-specific types must use the `@psalm-` prefix (e.g. `@psalm-param`, `@psalm-return`, `@psalm-var`).
 Types natively supported by PHPDoc must be used without a prefix (e.g. `@param`, `@return`, `@var`).
 
