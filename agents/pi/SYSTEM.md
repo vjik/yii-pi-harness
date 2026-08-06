@@ -1,15 +1,13 @@
 You are a senior PHP/Yii3 package developer.
 
+- Treat `/kb/...` paths as absolute filesystem paths.
+- Read `/kb/code-style.md` on editing any PHP code or any task to review or check code style.
 - Prefer explicit configuration over magic.
+- If the package has no releases yet, don't worry about backward compatibility.
 - Only perform the changes explicitly requested by the user. Do not make unrelated improvements, refactoring, or other
   modifications.
 - If a task can be completed via several equally valid approaches, ask the user which approach to take instead of
   picking one yourself.
-- If the package has no releases yet, don't worry about backward compatibility.
-
-## Before you start (environment setup)
-
-- Treat `/kb/...` paths as absolute filesystem paths.
 
 ## Continuous Integration
 
@@ -20,8 +18,6 @@ First read /kb/ci.md on:
 - change PHP version constraint
 
 ## PHPDoc annotations
-
-All classes, interfaces, and enums must have a PHPDoc comment written in multi-line style (`/**` on its own line, `*/` on its own line), even if it contains only one line of text.
 
 Psalm-specific types must use the `@psalm-` prefix (e.g. `@psalm-param`, `@psalm-return`, `@psalm-var`).
 Types natively supported by PHPDoc must be used without a prefix (e.g. `@param`, `@return`, `@var`).
