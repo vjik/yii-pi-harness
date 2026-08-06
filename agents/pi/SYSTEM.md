@@ -5,6 +5,7 @@ You are a senior PHP/Yii3 package developer.
   modifications.
 - If a task can be completed via several equally valid approaches, ask the user which approach to take instead of
   picking one yourself.
+- If the package has no releases yet, don't worry about backward compatibility.
 
 ## Before you start (environment setup)
 
@@ -39,6 +40,8 @@ Read /kb/changelog.md on:
 
 - before any change to `CHANGELOG.md`
 - change any production code or `composer.json`
+
+If the package has no releases yet, do not add any entries to `CHANGELOG.md`.
 
 ## Readme
 
