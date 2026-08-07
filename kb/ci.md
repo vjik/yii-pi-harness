@@ -84,11 +84,26 @@ jobs:
     uses: yiisoft/actions/.github/workflows/changelog.yml@master
 ```
 
-## composer-require-checker.yml
+## composer-dependency-analyser.yml
 
 - Triggers: pull_request, push
-- Paths: production code (src/, config/, etc.), tests, composer.json, composer-require-checker.json, workflow file
+- Paths: production code (src/, config/, etc.), tests, composer.json, composer-dependency-analyser.php, workflow file
 - Must run on all minor PHP versions supported by the package
+- Uses the reusable workflow, `php` list is supported:
+```yaml
+jobs:
+  composer-dependency-analyser:
+    uses: yiisoft/actions/.github/workflows/composer-dependency-analyser.yml@master
+    with:
+      php: >-
+        ['8.1', '8.2', '8.3', '8.4', '8.5']
+```
+
+## composer-require-checker.yml
+
+- Deprecated, replaced by `composer-dependency-analyser.yml`. If a package still has this workflow (and the
+  `composer-require-checker.json` config / `composer-require-checker` dev dependency), replace it with
+  `composer-dependency-analyser.yml`, see /kb/composer-dependency-analyser.md.
 
 ## mutation.yml
 

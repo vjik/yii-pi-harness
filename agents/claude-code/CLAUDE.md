@@ -52,14 +52,17 @@ Read /kb/composer.md on:
 
 - before any change to `composer.json`
 
-## Rector
+## Composer dev tools
 
-Read /kb/rector.md on:
+Dev tools installed as Composer dev dependencies, with documented setup/usage — read the linked doc before adding
+or working with one:
 
-- setting up or configuring Rector
-- any task involving running or updating Rector
-
-## Dev tools in `tools/`
+- `shipmonk/composer-dependency-analyser` — detects unknown, shadow, and unused Composer dependencies; see
+  /kb/composer-dependency-analyser.md
+- `friendsofphp/php-cs-fixer` — automatically fixes PHP code style to match a defined coding standard; see
+  /kb/php-cs-fixer.md
+- `rector/rector` — automatically refactors PHP code: upgrades it to a target PHP version and applies configured
+  code quality rules; see /kb/rector.md
 
 Read /kb/bamarni-bin-plugin.md on:
 
