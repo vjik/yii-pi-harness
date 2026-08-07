@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-pi install npm:pi-subagents-lite@1.8.0
+pi install npm:pi-subagents-lite@1.9.0
 
 SETTINGS_FILE="$PI_CODING_AGENT_DIR/settings.json" node -e '
 const fs = require("node:fs");
