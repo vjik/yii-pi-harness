@@ -114,6 +114,7 @@ ENV PI_OFFLINE=1
 
 # Pi defaults
 COPY agents/pi /opt/pi
+COPY agents/SYSTEM.md /opt/pi/SYSTEM.md
 RUN chmod +x /opt/pi/prepare.sh
 
 CMD ["pi"]
@@ -137,6 +138,7 @@ ENV DISABLE_AUTOUPDATER=1
 
 # Claude Code defaults
 COPY agents/claude-code /opt/claude-code
+COPY agents/SYSTEM.md /opt/claude-code/CLAUDE.md
 RUN chmod +x /opt/claude-code/prepare.sh
 
 # Convert prompts to skills
