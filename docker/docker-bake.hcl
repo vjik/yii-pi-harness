@@ -15,7 +15,7 @@ variable "CURL_CONNECT_TIMEOUT" {
 }
 
 group "default" {
-  targets = ["pi", "claude-code"]
+  targets = ["pi", "claude"]
 }
 
 target "common" {
@@ -103,8 +103,8 @@ target "pi" {
   tags = ["ghcr.io/yiisoft-contrib/pi-harness:latest"]
 }
 
-target "claude-code" {
+target "claude" {
   inherits = ["base"]
-  target = "claude-code"
-  tags = ["ghcr.io/yiisoft-contrib/claude-code-harness:latest"]
+  target = "claude"
+  tags = ["ghcr.io/yiisoft-contrib/claude-harness:latest"]
 }

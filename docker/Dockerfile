@@ -123,7 +123,7 @@ CMD ["pi"]
 # =============================================================================
 # Claude Code
 # =============================================================================
-FROM base AS claude-code
+FROM base AS claude
 
 ARG CLAUDE_CODE_VERSION
 
@@ -131,17 +131,17 @@ ARG CLAUDE_CODE_VERSION
 RUN npm install -g @anthropic-ai/claude-code@"$CLAUDE_CODE_VERSION"
 
 # Claude Code config directory
-ENV CLAUDE_CONFIG_DIR=/claude-code
+ENV CLAUDE_CONFIG_DIR=/claude
 
 # The image pins the Claude Code version; disable background auto-update checks
 ENV DISABLE_AUTOUPDATER=1
 
 # Claude Code defaults
-COPY agents/claude-code /opt/claude-code
-COPY agents/SYSTEM.md /opt/claude-code/CLAUDE.md
-RUN chmod +x /opt/claude-code/prepare.sh
+COPY agents/claude /opt/claude
+COPY agents/SYSTEM.md /opt/claude/CLAUDE.md
+RUN chmod +x /opt/claude/prepare.sh
 
 # Convert prompts to skills
-RUN node /opt/claude-code/prompts-to-skills.js && rm /opt/claude-code/prompts-to-skills.js
+RUN node /opt/claude/prompts-to-skills.js && rm /opt/claude/prompts-to-skills.js
 
 CMD ["claude"]

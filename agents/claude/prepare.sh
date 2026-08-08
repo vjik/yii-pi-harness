@@ -15,7 +15,7 @@ for skill in /skills/*/; do
 done
 
 echo "prepare $CLAUDE_CONFIG_DIR/CLAUDE.md"
-cp -f /opt/claude-code/CLAUDE.md "$CLAUDE_CONFIG_DIR/CLAUDE.md"
+cp -f /opt/claude/CLAUDE.md "$CLAUDE_CONFIG_DIR/CLAUDE.md"
 
 # Pre-approve reading /kb/*.md files without asking, whether via the Read
 # tool or common shell commands run directly against /kb.

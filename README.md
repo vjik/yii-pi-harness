@@ -4,12 +4,12 @@
 
 ```shell
 ./run.sh pi              # start Pi
-./run.sh claude-code     # start Claude Code
+./run.sh claude          # start Claude Code
 ./run.sh pi --prepare    # run /opt/pi/prepare.sh once against the mounted config directory
 ./run.sh pi --local-proxy=1080  # route traffic through a local proxy on the host
 ```
 
-It mounts `$HOME/.config/yii-harness/claude-code` or `$HOME/.config/yii-harness/pi` as the agent's
+It mounts `$HOME/.config/yii-harness/claude` or `$HOME/.config/yii-harness/pi` as the agent's
 config directory, and `$HOME/.config/yii-harness/github-token` if it exists (see [GitHub CLI](#github-cli)).
 
 ## Pi
@@ -43,21 +43,21 @@ docker run --rm -it --init --read-only \
   -e PUID="$(id -u)" \
   -e PGID="$(id -g)" \
   --tmpfs /tmp \
-  -v "$HOME"/.config/yii-harness/claude-code:/claude-code \
+  -v "$HOME"/.config/yii-harness/claude:/claude \
   -v "$(pwd)":/workspace \
-  ghcr.io/yiisoft-contrib/claude-code-harness:latest
+  ghcr.io/yiisoft-contrib/claude-harness:latest
 ```
 
-Before first use, run `/opt/claude-code/prepare.sh` once against the mounted config directory:
+Before first use, run `/opt/claude/prepare.sh` once against the mounted config directory:
 
 ```shell
 docker run --rm -it --init --read-only \
   -e PUID="$(id -u)" \
   -e PGID="$(id -g)" \
   --tmpfs /tmp \
-  -v "$HOME"/.config/yii-harness/claude-code:/claude-code \
-  ghcr.io/yiisoft-contrib/claude-code-harness:latest \
-  /opt/claude-code/prepare.sh
+  -v "$HOME"/.config/yii-harness/claude:/claude \
+  ghcr.io/yiisoft-contrib/claude-harness:latest \
+  /opt/claude/prepare.sh
 ```
 
 ## GitHub CLI

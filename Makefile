@@ -1,12 +1,12 @@
 .DEFAULT_GOAL := help
 
-build: build-pi build-claude-code ## Build all docker images
+build: build-pi build-claude ## Build all docker images
 
 build-pi: ## Build the Pi docker image
 	docker buildx bake -f docker/docker-bake.hcl pi
 
-build-claude-code: ## Build the Claude Code docker image
-	docker buildx bake -f docker/docker-bake.hcl claude-code
+build-claude: ## Build the Claude Code docker image
+	docker buildx bake -f docker/docker-bake.hcl claude
 
 hadolint: ## Run hadolint on all Dockerfiles
 	@find docker -name Dockerfile | while read -r f; do \

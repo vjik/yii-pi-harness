@@ -7,7 +7,7 @@ Usage: run <agent> [options]
 
 Agents:
   pi           Pi Coding Agent
-  claude-code  Claude Code
+  claude       Claude Code
 
 Options:
   --prepare              Run the agent's prepare script instead of starting it
@@ -79,11 +79,11 @@ case "$agent" in
     image="ghcr.io/yiisoft-contrib/pi-harness:latest"
     prepare_cmd="/opt/pi/prepare.sh"
     ;;
-  claude-code)
-    config_dir="claude-code"
-    mount_target="/claude-code"
-    image="ghcr.io/yiisoft-contrib/claude-code-harness:latest"
-    prepare_cmd="/opt/claude-code/prepare.sh"
+  claude)
+    config_dir="claude"
+    mount_target="/claude"
+    image="ghcr.io/yiisoft-contrib/claude-harness:latest"
+    prepare_cmd="/opt/claude/prepare.sh"
     ;;
   *)
     echo "run: unknown agent: $agent" >&2
