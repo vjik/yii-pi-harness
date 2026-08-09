@@ -47,6 +47,17 @@ if (PHP_VERSION_ID < 80200) {
 return $config;
 ```
 
+Any use of `ignore*` methods (`ignoreUnknownClasses()`, `ignoreErrorsOnPath()`, `ignoreUnknownClassesRegex()`, etc.)
+must be accompanied by a comment explaining why the ignore is needed. An ignore without justification is hard to
+revisit later and may hide a real problem.
+
+```php
+// SensitiveParameter is only available since PHP 8.2, ignore it on older PHP to avoid false "unknown class" errors
+if (PHP_VERSION_ID < 80200) {
+    $config->ignoreUnknownClasses(['SensitiveParameter']);
+}
+```
+
 ## Usage
 
 Run `composer dependency-analyser` to check.

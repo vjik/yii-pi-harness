@@ -14,6 +14,7 @@ File `CHANGELOG.md`. Entries are grouped under a version heading:
 
 - Types: **New** (novel features), **Chg** (general modifications), **Enh** (improvements to existing
   functionality), **Bug** (defect fixes)
+- Removing a dependency (e.g. from `composer.json` `require`) is recorded as **Enh**, not **Chg**
 - Within a version section, order entries by type: New, Chg, Enh, Bug
 - `#number` — issue or PR number; author nicknames must be prefixed with `@`
 - Multiple issue/PR numbers may be listed for one entry, separated by commas (e.g. `#number1, #number2`)
