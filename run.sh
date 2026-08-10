@@ -139,7 +139,6 @@ if [ -n "$local_proxy_port" ]; then
     -e "HTTPS_PROXY=http://host.docker.internal:$local_proxy_port"
     --add-host=host.docker.internal:host-gateway
   )
-  need_host_gateway=1
 fi
 
 if [ -n "$browser_debug_port" ]; then
