@@ -41,5 +41,6 @@ for (const rule of rules) {
   if (!allow.includes(rule)) allow.push(rule);
 }
 settings.permissions.allow = allow;
+settings.permissions.defaultMode ??= "auto";
 fs.writeFileSync(file, JSON.stringify(settings, null, 2) + "\n");
 '
