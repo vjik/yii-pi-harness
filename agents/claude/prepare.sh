@@ -44,3 +44,19 @@ settings.permissions.allow = allow;
 settings.permissions.defaultMode ??= "auto";
 fs.writeFileSync(file, JSON.stringify(settings, null, 2) + "\n");
 '
+
+# Register the Chrome DevTools MCP server (installed globally in the image)
+# at user scope, so it is available without an interactive `claude mcp add`.
+echo "prepare $CLAUDE_CONFIG_DIR/.claude.json"
+CONFIG_FILE="$CLAUDE_CONFIG_DIR/.claude.json" node -e '
+const fs = require("node:fs");
+const file = process.env.CONFIG_FILE;
+const config = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf-8") || "{}") : {};
+config.mcpServers ??= {};
+config.mcpServers["chrome-devtools"] = {
+  type: "stdio",
+  command: "chrome-devtools-mcp",
+  args: ["--no-usage-statistics", "--browser-url", "${CHROME_DEVTOOLS_MCP_BROWSER_URL:-}"],
+};
+fs.writeFileSync(file, JSON.stringify(config, null, 2) + "\n");
+'

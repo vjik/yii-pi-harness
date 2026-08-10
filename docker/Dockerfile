@@ -9,6 +9,7 @@ ARG CLAUDE_CODE_VERSION=2.1.226
 ARG ZIZMOR_VERSION=1.29.0
 ARG GITHUB_LOOKUP_NEXT_ID_VERSION=1.0.1
 ARG GH_VERSION=2.97.0
+ARG CHROME_DEVTOOLS_MCP_VERSION=1.7.0
 ARG CURL_CONNECT_TIMEOUT=7
 
 FROM node:${NODE_IMAGE_VERSION} AS node
@@ -19,6 +20,7 @@ ARG PHP_DEFAULT_VERSION
 ARG ZIZMOR_VERSION
 ARG GITHUB_LOOKUP_NEXT_ID_VERSION
 ARG GH_VERSION
+ARG CHROME_DEVTOOLS_MCP_VERSION
 ARG CURL_CONNECT_TIMEOUT
 
 # hadolint ignore=DL3008
@@ -75,6 +77,9 @@ COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+
+# Chrome DevTools MCP
+RUN npm install -g --ignore-scripts chrome-devtools-mcp@"$CHROME_DEVTOOLS_MCP_VERSION"
 
 # GitHub CLI
 RUN curl -fsSL --connect-timeout ${CURL_CONNECT_TIMEOUT} "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_$(dpkg --print-architecture).deb" -o /tmp/gh.deb \

@@ -10,18 +10,19 @@ Agents:
   claude       Claude Code
 
 Options:
-  --prepare              Run the agent's prepare script instead of starting it
-  --local-proxy PORT     Route traffic through a local proxy on the host at the given port
-                         (sets HTTP_PROXY/HTTPS_PROXY to http://host.docker.internal:PORT
-                         and adds --add-host=host.docker.internal:host-gateway)
-  --dry-run              Print the docker run command instead of executing it
-  -h, --help             Show this help
+  --prepare                  Run the agent's prepare script instead of starting it
+  --local-proxy PORT         Route traffic through a local proxy on the host at the given port
+  --browser-debug-port PORT  Connect chrome-devtools-mcp to a Chrome instance remote-debugging
+                             on the host at the given port
+  --dry-run                  Print the docker run command instead of executing it
+  -h, --help                 Show this help
 EOF
 }
 
 agent=""
 prepare=0
 local_proxy_port=""
+browser_debug_port=""
 dry_run=0
 
 while [ $# -gt 0 ]; do
@@ -44,6 +45,18 @@ while [ $# -gt 0 ]; do
         exit 1
       fi
       local_proxy_port="$2"
+      shift 2
+      ;;
+    --browser-debug-port=*)
+      browser_debug_port="${1#*=}"
+      shift
+      ;;
+    --browser-debug-port)
+      if [ $# -lt 2 ]; then
+        echo "run: --browser-debug-port requires a PORT argument" >&2
+        exit 1
+      fi
+      browser_debug_port="$2"
       shift 2
       ;;
     -h|--help)
@@ -126,6 +139,20 @@ if [ -n "$local_proxy_port" ]; then
     -e "HTTPS_PROXY=http://host.docker.internal:$local_proxy_port"
     --add-host=host.docker.internal:host-gateway
   )
+  need_host_gateway=1
+fi
+
+if [ -n "$browser_debug_port" ]; then
+  # Chrome's remote-debugging server rejects requests whose Host header isn't
+  # an IP or "localhost" (DNS-rebinding protection), so host.docker.internal
+  # itself doesn't work here — resolve it to the host-gateway IP up front and
+  # use that instead.
+  host_gateway_ip="$(docker run --rm --add-host=host.docker.internal:host-gateway --entrypoint getent "$image" hosts host.docker.internal | awk '{print $1}')"
+  if [ -z "$host_gateway_ip" ]; then
+    echo "run: failed to resolve host.docker.internal to an IP" >&2
+    exit 1
+  fi
+  docker_args+=(-e "CHROME_DEVTOOLS_MCP_BROWSER_URL=http://$host_gateway_ip:$browser_debug_port")
 fi
 
 docker_args+=("$image")
