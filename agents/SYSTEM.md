@@ -85,3 +85,5 @@ The following tools are installed and available for use in this environment:
 - `github-lookup-next-id` — for finding the next free issue/PR number (usage: /kb/tools/github-lookup-next-id.md)
 - `gh` — GitHub CLI, for interacting with GitHub (issues, PRs, workflow runs, etc.); authenticated automatically at
   container start if a token file was mounted (see the `gh` skill for usage patterns)
+
+To work with a browser, use the `chrome-devtools` MCP server.

@@ -1,7 +1,8 @@
 #!/bin/sh
 set -eu
 
-pi install npm:pi-subagents-lite@1.9.0
+pi install npm:pi-subagents-lite@1.10.0
+pi install npm:pi-mcp-adapter@2.23.0
 
 SETTINGS_FILE="$PI_CODING_AGENT_DIR/settings.json" node -e '
 const fs = require("node:fs");
@@ -22,3 +23,4 @@ fs.writeFileSync(file, JSON.stringify(settings, null, 2) + "\n");
 
 cp -f /opt/pi/SYSTEM.md "$PI_CODING_AGENT_DIR/SYSTEM.md"
 cp -f /opt/pi/trust.json "$PI_CODING_AGENT_DIR/trust.json"
+cp -f /opt/pi/mcp.json "$PI_CODING_AGENT_DIR/mcp.json"
