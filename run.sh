@@ -14,6 +14,7 @@ Options:
   --local-proxy PORT         Route traffic through a local proxy on the host at the given port
   --browser-debug-port PORT  Connect chrome-devtools-mcp to a Chrome instance remote-debugging
                              on the host at the given port
+  --timezone TZ              Set the container timezone (default: Europe/Moscow)
   --dry-run                  Print the docker run command instead of executing it
   -h, --help                 Show this help
 EOF
@@ -23,6 +24,7 @@ agent=""
 prepare=0
 local_proxy_port=""
 browser_debug_port=""
+timezone=""
 dry_run=0
 
 while [ $# -gt 0 ]; do
@@ -57,6 +59,18 @@ while [ $# -gt 0 ]; do
         exit 1
       fi
       browser_debug_port="$2"
+      shift 2
+      ;;
+    --timezone=*)
+      timezone="${1#*=}"
+      shift
+      ;;
+    --timezone)
+      if [ $# -lt 2 ]; then
+        echo "run: --timezone requires a TZ argument" >&2
+        exit 1
+      fi
+      timezone="$2"
       shift 2
       ;;
     -h|--help)
@@ -139,6 +153,10 @@ if [ -n "$local_proxy_port" ]; then
     -e "HTTPS_PROXY=http://host.docker.internal:$local_proxy_port"
     --add-host=host.docker.internal:host-gateway
   )
+fi
+
+if [ -n "$timezone" ]; then
+  docker_args+=(-e "TZ=$timezone")
 fi
 
 if [ -n "$browser_debug_port" ]; then

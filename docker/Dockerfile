@@ -43,6 +43,7 @@ RUN apt-get update \
     libicu-dev \
     libsodium-dev \
     libzip-dev \
+    tzdata \
   && rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3022
@@ -97,6 +98,8 @@ COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENV LC_ALL=C.UTF-8
+ENV TZ=Europe/Moscow
+
 WORKDIR /workspace
 ENTRYPOINT ["entrypoint.sh"]
 
