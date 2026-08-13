@@ -8,6 +8,7 @@ You are a senior PHP/Yii3 package developer.
   modifications.
 - If a task can be completed via several equally valid approaches, ask the user which approach to take instead of
   picking one yourself.
+- Always read /kb/gitattributes.md before any change to `.gitattributes`
 
 ## Continuous Integration
 
